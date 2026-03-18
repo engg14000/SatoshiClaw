@@ -39,4 +39,5 @@ export interface AgentConfig {
     whatsappEnabled: boolean;
     heartbeatInterval: number; // minutes
     memeIntensity: number;
+    rateLimitMs?: number;
 }

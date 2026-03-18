@@ -7,6 +7,7 @@ export class SathoshiClawAgent {
     private skills: Map<string, Skill> = new Map();
     private config: AgentConfig;
     private context: AgentContext;
+    private rateLimits: Map<string, number> = new Map();
 
     constructor(config: AgentConfig) {
         this.config = config;
@@ -66,17 +67,35 @@ export class SathoshiClawAgent {
         const command = args[0].toLowerCase();
 
         let handled = false;
+        let matchedSkill: Skill | undefined;
+
         for (const skill of this.skills.values()) {
             if (skill.triggers.includes(command)) {
-                logger.info(`Executing skill ${skill.name} for command ${command}`);
+                matchedSkill = skill;
+                break;
+            }
+        }
+
+        if (matchedSkill) {
+            const rateLimitKey = `${message.gateway}:${message.chatId}`;
+            const now = Date.now();
+            const lastExecutionTime = this.rateLimits.get(rateLimitKey) || 0;
+            const rateLimitMs = this.config.rateLimitMs ?? 3000;
+
+            if (now - lastExecutionTime < rateLimitMs) {
+                logger.warn(`Rate limit exceeded for ${rateLimitKey} on command ${command}`);
+                await this.sendMessage(message.gateway, message.chatId, "⏳ Whoa there! The claw is cooling down. Please wait a moment.");
+                handled = true;
+            } else {
+                this.rateLimits.set(rateLimitKey, now);
+                logger.info(`Executing skill ${matchedSkill.name} for command ${command}`);
                 try {
-                    await skill.execute(message, args.slice(1), this.context);
+                    await matchedSkill.execute(message, args.slice(1), this.context);
                 } catch (error) {
-                    logger.error(`Error executing skill ${skill.name}:`, error);
+                    logger.error(`Error executing skill ${matchedSkill.name}:`, error);
                     await this.sendMessage(message.gateway, message.chatId, "💥 The claw jammed! (Error executing skill)");
                 }
                 handled = true;
-                break; // One skill per command
             }
         }
 
@@ -88,6 +107,9 @@ export class SathoshiClawAgent {
 
     private async triggerHeartbeat() {
         logger.info('💓 Heartbeat triggered');
+        // Clear rate limits to prevent memory leaks over time
+        this.rateLimits.clear();
+
         for (const skill of this.skills.values()) {
             if (skill.onHeartbeat) {
                 try {
