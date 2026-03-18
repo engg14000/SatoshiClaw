@@ -60,6 +60,13 @@ export class SathoshiClawAgent {
     }
 
     private async handleMessage(message: Message) {
+        const MAX_MESSAGE_LENGTH = 4096;
+
+        if (!message.content || message.content.length > MAX_MESSAGE_LENGTH) {
+            logger.warn(`Ignored incoming message from ${message.gateway} due to missing content or exceeding length limit of ${MAX_MESSAGE_LENGTH} characters.`);
+            return;
+        }
+
         logger.debug(`Received message from ${message.gateway}: ${message.content}`);
 
         const args = message.content.split(' ');
