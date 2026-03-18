@@ -1,15 +1,18 @@
 import schedule from 'node-schedule';
 import { Gateway, Skill, Message, AgentContext, AgentConfig } from './types';
 import { logger } from '../utils/logger';
+import { JSONStore } from '../utils/store';
 
 export class SathoshiClawAgent {
     private gateways: Map<string, Gateway> = new Map();
     private skills: Map<string, Skill> = new Map();
     private config: AgentConfig;
     private context: AgentContext;
+    private chatStore: JSONStore<Record<string, string[]>>;
 
     constructor(config: AgentConfig) {
         this.config = config;
+        this.chatStore = new JSONStore('chats.json', {});
         this.context = {
             sendMessage: this.sendMessage.bind(this),
             broadcast: this.broadcast.bind(this),
@@ -62,6 +65,18 @@ export class SathoshiClawAgent {
     private async handleMessage(message: Message) {
         logger.debug(`Received message from ${message.gateway}: ${message.content}`);
 
+        // Track chat ID for broadcasts
+        const chats = this.chatStore.get();
+        if (!chats[message.gateway]) {
+            this.chatStore.update(data => {
+                data[message.gateway] = [message.chatId];
+            });
+        } else if (!chats[message.gateway].includes(message.chatId)) {
+            this.chatStore.update(data => {
+                data[message.gateway].push(message.chatId);
+            });
+        }
+
         const args = message.content.split(' ');
         const command = args[0].toLowerCase();
 
@@ -109,10 +124,27 @@ export class SathoshiClawAgent {
     }
 
     private async broadcast(content: string) {
-        // This is a simplified broadcast.
-        // Real implementation needs to track known chat IDs per gateway.
-        // For MVP, we might need a Store for chatIds.
         logger.info(`Broadcasting: ${content}`);
-        // TODO: Implement persistent chat storage to broadcast effectively
+
+        const chats = this.chatStore.get();
+        let broadcastCount = 0;
+
+        for (const [gatewayName, chatIds] of Object.entries(chats)) {
+            const gateway = this.gateways.get(gatewayName);
+            if (gateway) {
+                for (const chatId of chatIds) {
+                    try {
+                        await gateway.sendMessage(chatId, content);
+                        broadcastCount++;
+                    } catch (error) {
+                        logger.error(`Failed to broadcast to ${chatId} on ${gatewayName}:`, error);
+                    }
+                }
+            } else {
+                logger.warn(`Cannot broadcast on unknown gateway: ${gatewayName}`);
+            }
+        }
+
+        logger.info(`Broadcast complete. Sent to ${broadcastCount} chats.`);
     }
 }
