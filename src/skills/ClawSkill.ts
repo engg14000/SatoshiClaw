@@ -32,7 +32,9 @@ export class ClawSkill extends BaseSkill {
   constructor() {
     super();
     this.statsStore = new JSONStore('stats.json', DEFAULT_STATS);
-    this.startMiningLoop();
+    this.statsStore.ready.then(() => {
+      this.startMiningLoop();
+    });
   }
 
   private startMiningLoop() {
