@@ -52,8 +52,6 @@ export class WhatsAppGateway extends BaseGateway {
         });
 
         this.socket.ev.on('messages.upsert', async (m: any) => {
-            // console.log(JSON.stringify(m, undefined, 2));
-
             if (m.type === 'notify') {
                 for (const msg of m.messages) {
                     if (!msg.message) continue;
