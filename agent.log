@@ -1,0 +1,21 @@
+2026-03-18T20:16:39.740Z [INFO]: Initializing SathoshiClaw...
+2026-03-18T20:16:39.743Z [INFO]: Creating new store at /app/stats.json
+2026-03-18T20:16:39.744Z [INFO]: Skill registered: ClawSkill [/claw, /status, /mine]
+2026-03-18T20:16:39.744Z [INFO]: Skill registered: MemeGeneratorSkill [/meme, /joke]
+2026-03-18T20:16:39.744Z [INFO]: Skill registered: StatsTrackerSkill [/stats, /system]
+2026-03-18T20:16:39.745Z [INFO]: Starting SathoshiClaw Agent...
+2026-03-18T20:16:39.745Z [INFO]: Scheduling heartbeat every 60 minutes.
+2026-03-18T20:16:40.058Z [INFO]: SathoshiClaw is live and clawing!
+2026-03-18T20:16:40.059Z [INFO]: 💓 Heartbeat triggered
+2026-03-18T20:16:40.059Z [INFO]: [Heartbeat] Still clawing. Total attempts: 0
+2026-03-18T20:16:50.558Z [INFO]: Initializing SathoshiClaw...
+2026-03-18T20:16:50.561Z [INFO]: Loaded store from /app/stats.json
+2026-03-18T20:16:50.562Z [INFO]: Skill registered: ClawSkill [/claw, /status, /mine]
+2026-03-18T20:16:50.562Z [INFO]: Skill registered: MemeGeneratorSkill [/meme, /joke]
+2026-03-18T20:16:50.562Z [INFO]: Skill registered: StatsTrackerSkill [/stats, /system]
+2026-03-18T20:16:50.563Z [INFO]: Starting SathoshiClaw Agent...
+2026-03-18T20:16:50.563Z [INFO]: Scheduling heartbeat every 60 minutes.
+2026-03-18T20:16:50.600Z [INFO]: SathoshiClaw is live and clawing!
+2026-03-18T20:16:50.601Z [INFO]: 💓 Heartbeat triggered
+2026-03-18T20:17:00.487Z [INFO]: Received SIGTERM. Shutting down...
+2026-03-18T20:17:00.510Z [INFO]: Received SIGTERM. Shutting down...
