@@ -24,9 +24,9 @@ export function generateRandomKey(): KeyPair {
   const { address } = bitcoin.payments.p2pkh({ pubkey: keyPair.publicKey });
 
   return {
-    privateKey: keyPair.privateKey!.toString('hex'),
+    get privateKey() { return keyPair.privateKey!.toString('hex'); },
     address: address!,
-    wif: keyPair.toWIF(),
+    get wif() { return keyPair.toWIF(); },
   };
 }
 
