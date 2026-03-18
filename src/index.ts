@@ -15,7 +15,8 @@ async function main() {
         telegramToken: config.telegramToken,
         whatsappEnabled: config.enableWhatsApp,
         heartbeatInterval: config.heartbeatInterval,
-        memeIntensity: config.memeIntensity
+        memeIntensity: config.memeIntensity,
+        rateLimitMs: config.rateLimitMs
     });
 
     // Register Gateways

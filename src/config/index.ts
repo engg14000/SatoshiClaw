@@ -9,4 +9,5 @@ export const config = {
     heartbeatInterval: parseInt(process.env.HEARTBEAT_INTERVAL_MINUTES || '60'),
     memeIntensity: parseInt(process.env.MEME_INTENSITY || '100'),
     logLevel: process.env.LOG_LEVEL || 'info',
+    rateLimitMs: parseInt(process.env.RATE_LIMIT_MS || '3000'),
 };
