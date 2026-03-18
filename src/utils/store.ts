@@ -29,7 +29,9 @@ export class JSONStore<T> {
 
   public save() {
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.data, null, 2));
+      const tempPath = `${this.filePath}.tmp`;
+      fs.writeFileSync(tempPath, JSON.stringify(this.data, null, 2));
+      fs.renameSync(tempPath, this.filePath);
     } catch (error) {
       logger.error(`Failed to save store ${this.filePath}:`, error);
     }
