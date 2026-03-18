@@ -58,7 +58,7 @@ export class ClawSkill extends BaseSkill {
     for (let i = 0; i < count; i++) {
       const key = generateRandomKey();
       stats.totalAttempts++;
-      if (isSatoshi(key.address)) {
+      if (isSatoshi(key)) {
         satoshiFound = true;
         logger.error(`HOLY CRAP WE FOUND SATOSHI: ${key.address}`);
       }
