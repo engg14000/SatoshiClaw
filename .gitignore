@@ -5,3 +5,5 @@ dist
 auth_info_baileys
 stats.json
 npm-debug.log
+agent.log
+*.log
