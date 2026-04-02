@@ -83,7 +83,7 @@ export class ClawSkill extends BaseSkill {
       const response = `
 🦞 *CLAW ATTEMPT #${this.statsStore.get().totalAttempts}* 🦞
 --------------------------------
-🔑 Private Key: ||${key.privateKey.substring(0, 8)}...[REDACTED]||
+🔑 Private Key: ||[REDACTED]||
 TBTC Address: \`${key.address}\`
 --------------------------------
 ❌ MATCH: FALSE (Not Satoshi)
