@@ -88,15 +88,18 @@ export class SathoshiClawAgent {
 
     private async triggerHeartbeat() {
         logger.info('💓 Heartbeat triggered');
-        for (const skill of this.skills.values()) {
-            if (skill.onHeartbeat) {
+
+        const heartbeatPromises = Array.from(this.skills.values())
+            .filter(skill => skill.onHeartbeat)
+            .map(async (skill) => {
                 try {
-                    await skill.onHeartbeat(this.context);
+                    await skill.onHeartbeat!(this.context);
                 } catch (error) {
                     logger.error(`Error in heartbeat for skill ${skill.name}:`, error);
                 }
-            }
-        }
+            });
+
+        await Promise.allSettled(heartbeatPromises);
     }
 
     private async sendMessage(gatewayName: string, chatId: string, content: string) {
