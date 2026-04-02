@@ -60,7 +60,7 @@ export class SathoshiClawAgent {
     }
 
     private async handleMessage(message: Message) {
-        logger.debug(`Received message from ${message.gateway}: ${message.content}`);
+        logger.debug(`Received message from ${message.gateway} (content redacted)`);
 
         const args = message.content.split(' ');
         const command = args[0].toLowerCase();
@@ -112,7 +112,7 @@ export class SathoshiClawAgent {
         // This is a simplified broadcast.
         // Real implementation needs to track known chat IDs per gateway.
         // For MVP, we might need a Store for chatIds.
-        logger.info(`Broadcasting: ${content}`);
+        logger.info(`Broadcasting message (content redacted)`);
         // TODO: Implement persistent chat storage to broadcast effectively
     }
 }
