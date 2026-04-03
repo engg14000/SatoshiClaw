@@ -1,0 +1,16 @@
+2026-03-18T19:58:28.707Z [INFO]: Initializing SathoshiClaw...
+2026-03-18T19:58:28.709Z [INFO]: [ConsoleGateway] Message handler registered.
+2026-03-18T19:58:28.710Z [INFO]: Gateway registered: ConsoleGateway
+2026-03-18T19:58:28.710Z [WARN]: Telegram enabled but no token provided. Skipping Telegram gateway.
+2026-03-18T19:58:28.711Z [INFO]: Loaded store from /app/stats.json
+2026-03-18T19:58:28.711Z [INFO]: Skill registered: ClawSkill [/claw, /status, /mine]
+2026-03-18T19:58:28.712Z [INFO]: Skill registered: MemeGeneratorSkill [/meme, /joke]
+2026-03-18T19:58:28.713Z [INFO]: Skill registered: StatsTrackerSkill [/stats, /system]
+2026-03-18T19:58:28.713Z [INFO]: Starting SathoshiClaw Agent...
+2026-03-18T19:58:28.716Z [INFO]: Console Gateway started. Type commands here (e.g. /claw)
+2026-03-18T19:58:28.719Z [INFO]: Started gateway: ConsoleGateway
+2026-03-18T19:58:28.719Z [INFO]: Scheduling heartbeat every 60 minutes.
+2026-03-18T19:58:28.774Z [INFO]: SathoshiClaw is live and clawing!
+2026-03-18T19:58:28.774Z [INFO]: 💓 Heartbeat triggered
+2026-03-18T20:00:00.012Z [INFO]: 💓 Heartbeat triggered
+2026-03-18T20:12:49.254Z [INFO]: Received SIGTERM. Shutting down...
