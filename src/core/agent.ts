@@ -67,6 +67,12 @@ export class SathoshiClawAgent {
     }
 
     private async handleMessage(message: Message) {
+        const MAX_MESSAGE_LENGTH = 4000;
+        if (!message.content || message.content.length > MAX_MESSAGE_LENGTH) {
+            logger.warn(`Message from ${message.gateway} exceeded maximum length or is empty. Ignoring.`);
+            return;
+        }
+
         logger.debug(`Received message from ${message.gateway}: ${message.content}`);
 
         // Register chat ID for broadcasting
