@@ -28,10 +28,19 @@ export class JSONStore<T> {
   }
 
   public save() {
+    const tempPath = `${this.filePath}.tmp`;
     try {
-      fs.writeFileSync(this.filePath, JSON.stringify(this.data, null, 2));
+      fs.writeFileSync(tempPath, JSON.stringify(this.data, null, 2));
+      fs.renameSync(tempPath, this.filePath);
     } catch (error) {
       logger.error(`Failed to save store ${this.filePath}:`, error);
+      if (fs.existsSync(tempPath)) {
+        try {
+          fs.unlinkSync(tempPath);
+        } catch (unlinkError) {
+          logger.error(`Failed to clean up temporary file ${tempPath}:`, unlinkError);
+        }
+      }
     }
   }
 
