@@ -61,7 +61,12 @@ export class SathoshiClawAgent {
     public async stop() {
         logger.info('Stopping SathoshiClaw Agent...');
         for (const gateway of this.gateways.values()) {
-            await gateway.stop();
+            try {
+                await gateway.stop();
+                logger.info(`Stopped gateway: ${gateway.name}`);
+            } catch (error) {
+                logger.error(`Failed to stop gateway ${gateway.name}:`, error);
+            }
         }
         schedule.gracefulShutdown();
     }
