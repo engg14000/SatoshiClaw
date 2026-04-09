@@ -4,6 +4,7 @@
   "description": "SathoshiClaw - The Viral Meme AI Agent seeking Satoshi's Keys 🦞",
   "main": "dist/index.js",
   "scripts": {
+    "test": "jest",
     "start": "ts-node src/index.ts",
     "build": "tsc",
     "prod": "node dist/index.js",
