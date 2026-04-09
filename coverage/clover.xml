@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1773864964163" clover="3.2.0">
+  <project timestamp="1773864964163" name="All files">
+    <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1" elements="16" coveredelements="12" complexity="0" loc="13" ncloc="13" packages="1" files="1" classes="1"/>
+    <file name="crypto.ts" path="/app/src/utils/crypto.ts">
+      <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="22" count="1" type="stmt"/>
+      <line num="23" count="6" type="stmt"/>
+      <line num="24" count="6" type="stmt"/>
+      <line num="26" count="6" type="stmt"/>
+      <line num="33" count="1" type="stmt"/>
+      <line num="34" count="0" type="stmt"/>
+      <line num="38" count="1" type="stmt"/>
+      <line num="39" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>
