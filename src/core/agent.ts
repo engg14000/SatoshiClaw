@@ -39,15 +39,19 @@ export class SathoshiClawAgent {
     public async start() {
         logger.info('Starting SathoshiClaw Agent...');
 
-        // Start all gateways
-        for (const gateway of this.gateways.values()) {
+        // Start all gateways in parallel to speed up initialization.
+        // We use an async wrapper for each gateway to ensure that one failing gateway doesn't stop others from starting,
+        // which matches the previous sequential error handling behavior.
+        const gatewayStarts = Array.from(this.gateways.values()).map(async (gateway) => {
             try {
                 await gateway.start();
                 logger.info(`Started gateway: ${gateway.name}`);
             } catch (error) {
                 logger.error(`Failed to start gateway ${gateway.name}:`, error);
             }
-        }
+        });
+
+        await Promise.all(gatewayStarts);
 
         // Schedule Heartbeat
         const interval = this.config.heartbeatInterval || 60;
