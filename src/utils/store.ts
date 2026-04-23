@@ -6,16 +6,18 @@ export class JSONStore<T> {
   private filePath: string;
   private data: T;
 
+  public ready: Promise<void>;
+
   constructor(filename: string, defaultData: T) {
     this.filePath = path.resolve(process.cwd(), filename);
     this.data = defaultData;
-    this.load();
+    this.ready = this.load();
   }
 
-  private load() {
+  private async load(): Promise<void> {
     try {
       if (fs.existsSync(this.filePath)) {
-        const content = fs.readFileSync(this.filePath, 'utf-8');
+        const content = await fs.promises.readFile(this.filePath, 'utf-8');
         this.data = JSON.parse(content);
         logger.info(`Loaded store from ${this.filePath}`);
       } else {
